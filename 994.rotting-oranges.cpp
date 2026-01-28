@@ -13,7 +13,7 @@ public:
         queue<pair<int,pair<int,int>>>q;
         vector<vector<int>>vis(n,vector<int>(m,0));
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
+            for(int j=0;j<m;j++){
                 if(nums[i][j]==2){
                    q.push({0,{i,j}});
                    vis[i][j]=1;
@@ -26,9 +26,10 @@ public:
             int time = q.front().first;
             int row  = q.front().second.first;
             int col = q.front().second.second;
-            for(int i =9;i<4;i++){
-                nr = row + dir[i][0];
-                nc = col + dir[i][1];
+             q.pop();
+            for(int i =0;i<4;i++){
+              int  nr = row + dir[i][0];
+               int nc = col + dir[i][1];
                 if(nr>=0 && nc<m && nr<n && nc>=0 && vis[nr][nc]==0 && nums[nr][nc]==1){
                     vis[nr][nc]=1;
                     nums[nr][nc]=2;
@@ -36,10 +37,16 @@ public:
                 }
             }
             ans = max(ans,time);
-            q.pop();
 
         }
-        for(int i =0 ;i<nc)
+        for(int i =0 ;i<n;i++){
+            for(int j =0;j<m;j++){
+                if(nums[i][j]==1){
+                    return -1;
+                }
+            }
+        }
+        return ans;
     }
 };
 // @lc code=end
