@@ -20,3 +20,4 @@ WHERE p.sales_id NOT IN (
 
 -- @lc code=end
 
+

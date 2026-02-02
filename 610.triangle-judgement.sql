@@ -15,3 +15,4 @@ END as triangle
 from Triangle;
 -- @lc code=end
 
+
