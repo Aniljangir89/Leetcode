@@ -15,6 +15,7 @@ public:
             num/=2;
             if(is!=bit)return false;
         }
+        
         return true;
 
     }
