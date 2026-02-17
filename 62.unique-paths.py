@@ -6,14 +6,20 @@
 
 # @lc code=start
 class Solution(object):
-    def f(self,n,m,i,j):
+    def f(self,n,m,i,j,dp):
         if i>=n or j>=m:
             return 0
         if i==n-1 and j==m-1:
             return 1
-        return  self.f(m,n,i+1,j)+self(m,n,i,j+1)
+        if(dp[i][j]!=-1):
+            return dp[i][j]
+         
+        dp[i][j]= self.f(n,m,i+1,j,dp)+self.f(n,m,i,j+1,dp)
+        return dp[i][j]
     def uniquePaths(self, m, n):
-       return self.f(n,m,0,0)
+       dp = [[-1 for _ in range(m+1)]for _ in range(n+1)]
+       return self.f(n,m,0,0,dp)
+        
         
 # @lc code=end
 
