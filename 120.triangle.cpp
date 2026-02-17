@@ -8,38 +8,33 @@
 class Solution {
 public:
 
-    int f(vector<vector<int>>& dp, vector<vector<int>>& nums, int i, int j){
+    int f(int i, int j,
+          vector<vector<int>>& tri,
+          vector<vector<int>>& dp){
 
-        int n = nums.size();
+        if(i == tri.size()-1)
+            return tri[i][j];
 
-        int m = nums[i].size();
-
-        if(j >= m){
-            return 1e9;
-        }
-        if(i == n-1){
-            return dp[i][j] = nums[i][j];
-        }
-
-        if(dp[i][j] != -1){
+        if(dp[i][j] != INT_MAX)
             return dp[i][j];
-        }
 
         return dp[i][j] =
-            nums[i][j] +
+            tri[i][j] +
             min(
-                f(dp, nums, i+1, j),
-                f(dp, nums, i+1, j+1)
+                f(i+1,j,tri,dp),
+                f(i+1,j+1,tri,dp)
             );
     }
-    int minimumTotal(vector<vector<int>>& nums){
-        int n = nums.size();
-        vector<vector<int>> dp;
-        for(int i=0;i<n;i++){
-            vector<int>v(nums[i].size()+1,-1);
-            dp.push_back(v);
-        }
-        return f(dp, nums, 0, 0);
+    int minimumTotal(vector<vector<int>>& tri){
+
+        int n = tri.size();
+
+        vector<vector<int>> dp(n);
+
+        for(int i=0;i<n;i++)
+            dp[i] =
+                vector<int>(tri[i].size(), INT_MAX);
+        return f(0,0,tri,dp);
     }
 };
 
