@@ -32,32 +32,22 @@ public:
         int i =0,j=0;
         string ans = "";
         while(i<n and j<m){
-
-    if(str1[i]==str2[j]){
-
-        ans+=str1[i];
-        i++;
-        j++;
-
-    }
-    else{
-
-        if(dp[i+1][j] > dp[i][j+1]){
-
-            ans+=str1[i];
-            i++;
-
+            if(str1[i]==str2[j]){
+                ans+=str1[i];
+                i++;
+                j++;
+            }
+            else{
+                if(dp[i+1][j] > dp[i][j+1]){
+                    ans+=str1[i];
+                    i++;
+                }
+                else{
+                    ans+=str2[j];
+                    j++;
+                }
+            }
         }
-        else{
-
-            ans+=str2[j];
-            j++;
-
-        }
-    }
-
-
- }
         while(i<n)ans+=str1[i++];
         while(j<m)ans+=str2[j++];
         return ans;
