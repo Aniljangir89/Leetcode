@@ -1,50 +1,36 @@
 class Solution {
 public:
-    char mirror_char(char ch){
-        return ('z'-ch)+'a';
+    char mirror(char ch) {
+        if (ch >= 'a' && ch <= 'z') {
+            return ('z' - ch) + 'a';
+        } else {
+            return ('9' - ch) + '0';
+        }
     }
-    char mirror_int(char ch){
-        return ('9'-ch)+'0';
-    }
+
     int mirrorFrequency(string s) {
-        string t = "";
-        for(auto ch: s){
-            if(ch>='a' && ch<='z'){
-                t +=mirror_char(ch);
-            }else{
-                t+=mirror_int(ch);
-            }
+        vector<int> freq(128, 0);
+
+        // Step 1: count frequency
+        for (char ch : s) {
+            freq[ch]++;
         }
-        cout<<t<<endl;
-        map<string,int>mp;
-        for(int i=0;i<t.size();i++){
-            string pair1 = t[i]+s[i];
-            string pair2 = s[i]+t[i];
-            if((mp.find(pair1)!=mp.end()) || (mp.find(pair2 )!=mp.end())){
-                mp[pair1]+=1;
-            }
+
+        int ans = 0;
+
+        // Step 2: process only unique characters
+        for (char ch : s) {
+            if (freq[ch] == 0) continue;  // already processed
+
+            char m = mirror(ch);
+
+            ans += abs(freq[ch] - freq[m]);
+
+            // mark both as visited
+            freq[ch] = 0;
+            freq[m] = 0;
         }
-        
-        return 0;
+
+        return ans;
     }
 };
-
-
-// Example 1:
-
-// Input: s = "ab1z9"
-
-// Output: 3
-
-// Explanation:
-
-// For every mirror pair:
-
-// c	m	freq(c)	freq(m)	|freq(c) - freq(m)|
-// a	z	1	1	0
-// b	y	1	0	1
-// 1	8	1	0	1
-// 9	0	1	0	1
-// Thus, the answer is 0 + 1 + 1 + 1 = 3.
-
-az by 18 90
