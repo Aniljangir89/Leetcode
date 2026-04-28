@@ -25,3 +25,7 @@ public:
 };
 // @lc code=end
 
+
+// Input: nums = [1,2,4,2,3,2]
+
+// Output: [1,2,4,3,2]
